@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://c18vq8axsf7nl"]
+
+[ext_resource type="Script" path="res://EnemyBullet.gd" id="1_d7qwk"]
+[ext_resource type="Texture2D" uid="uid://ynsge4fxkgba" path="res://red.png" id="2_c42iu"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="2_revd2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fhb3"]
+size = Vector2(18, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dnoq"]
+size = Vector2(18, 6)
+
+[node name="EnemyBullet" type="RigidBody2D" groups=["enemybullets"]]
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("1_d7qwk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.988235, 0, 0.403922, 1)
+position = Vector2(20, -1.90735e-06)
+scale = Vector2(0.375, 0.125)
+texture = ExtResource("2_c42iu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_0fhb3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_2dnoq")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(23, 0)
+scale = Vector2(2.8379, 1.86046)
+energy = 16.0
+texture = ExtResource("2_revd2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_body_entered"]

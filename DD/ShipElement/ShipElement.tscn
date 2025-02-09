@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4sfnow8b0y36"]
+
+[ext_resource type="Script" path="res://ShipElement/ShipElement.gd" id="1_ip8po"]
+[ext_resource type="Texture2D" uid="uid://tvdsfej1yo2q" path="res://ShipElement/W_Dagger020.png" id="2_5iyim"]
+[ext_resource type="Texture2D" uid="uid://dad4qwl558u64" path="res://green.png" id="2_mxevw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnqki"]
+size = Vector2(22, 22)
+
+[node name="ShipElementPickUp" type="Area2D" groups=["pickups"]]
+collision_layer = 4
+script = ExtResource("1_ip8po")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.733962, 0.993105, 0, 1)
+position = Vector2(-4.76837e-07, 4.76837e-07)
+scale = Vector2(0.823529, 0.823529)
+texture = ExtResource("2_5iyim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hnqki")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(10.2549, 8.15708)
+color = Color(0.0707541, 0.977157, 0.0602638, 1)
+energy = 16.0
+range_z_min = -300
+range_z_max = 300
+shadow_enabled = true
+texture = ExtResource("2_mxevw")
+
+[connection signal="body_entered" from="." to="." method="_on_ShipElement_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

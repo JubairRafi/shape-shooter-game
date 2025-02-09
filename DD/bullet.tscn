@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc75qlp12uphl"]
+
+[ext_resource type="Script" path="res://Bullet.gd" id="1_5jgt7"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="2_biqse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fhb3"]
+size = Vector2(18, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dnoq"]
+size = Vector2(18, 6)
+
+[node name="Bullet" type="RigidBody2D" groups=["bullets"]]
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_5jgt7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.935504, 0.870691, 7.31587e-06, 1)
+position = Vector2(20, -1.90735e-06)
+scale = Vector2(0.375, 0.125)
+texture = ExtResource("2_biqse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_0fhb3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_2dnoq")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(23, 0)
+scale = Vector2(2.8379, 1.86046)
+energy = 16.0
+texture = ExtResource("2_biqse")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://de46tytdsfyyo"]
+
+[ext_resource type="Script" path="res://GameOverScreen.gd" id="1_l66r0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xbve4"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilm13"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_e8x0u"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_ghael"]
+font_size = 15
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l66r0")
+
+[node name="Game Over" type="Label" parent="."]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 174.0
+offset_right = 660.0
+offset_bottom = 229.0
+text = "Your Score"
+label_settings = SubResource("LabelSettings_xbve4")
+
+[node name="Restart Game" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 458.0
+offset_top = 396.0
+offset_right = 587.0
+offset_bottom = 431.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart Game"
+
+[node name="WaveLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 319.0
+offset_right = 623.0
+offset_bottom = 351.0
+text = "Wave"
+label_settings = SubResource("LabelSettings_ilm13")
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 289.0
+offset_right = 625.0
+offset_bottom = 319.0
+text = "Score"
+label_settings = SubResource("LabelSettings_e8x0u")
+
+[node name="TimeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 353.0
+offset_right = 598.0
+offset_bottom = 383.0
+text = "TIme"
+label_settings = SubResource("LabelSettings_ghael")
+
+[node name="WaveLabelH" type="Label" parent="."]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 525.0
+offset_right = 635.0
+offset_bottom = 551.0
+text = "Wave"
+label_settings = SubResource("LabelSettings_ilm13")
+
+[node name="ScoreLabelH" type="Label" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 493.0
+offset_right = 638.0
+offset_bottom = 521.0
+text = "High Score"
+label_settings = SubResource("LabelSettings_e8x0u")
+
+[node name="TimeLabelH" type="Label" parent="."]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 559.0
+offset_right = 612.0
+offset_bottom = 592.0
+text = "TIme"
+label_settings = SubResource("LabelSettings_ghael")
+
+[connection signal="pressed" from="Restart Game" to="." method="_on_restart_game_pressed"]

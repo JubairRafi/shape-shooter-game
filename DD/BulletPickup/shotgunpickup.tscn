@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://badxkyjq3iptf"]
+
+[ext_resource type="Texture2D" uid="uid://i1qf2vamojrh" path="res://BulletPickup/shotgun.png" id="1_m6amp"]
+[ext_resource type="Script" path="res://BulletPickup/Shotgunpickup.gd" id="1_r3qss"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="3_2bkdy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm7g2"]
+size = Vector2(40, 26)
+
+[node name="Shotgunpickup" type="Area2D"]
+position = Vector2(-492, -321)
+collision_layer = 2
+script = ExtResource("1_r3qss")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.956863, 0.945098, 0, 1)
+position = Vector2(523, 371)
+scale = Vector2(0.271, 0.24)
+texture = ExtResource("1_m6amp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(523, 358)
+shape = SubResource("RectangleShape2D_tm7g2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(523, 360)
+scale = Vector2(2.29167, 2.29167)
+energy = 16.0
+texture = ExtResource("3_2bkdy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

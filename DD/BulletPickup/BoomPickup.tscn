@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd3mpfcjp1q1s"]
+
+[ext_resource type="Script" path="res://BulletPickup/BoomPickup.gd" id="1_cusqa"]
+[ext_resource type="Texture2D" uid="uid://b05edl2uwbloa" path="res://BulletPickup/boom.png" id="1_f3pl4"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="3_j18j4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s67h3"]
+size = Vector2(25, 24)
+
+[node name="BoomPickup" type="Area2D"]
+position = Vector2(-464, -142)
+collision_layer = 2
+script = ExtResource("1_cusqa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.0117647, 1)
+position = Vector2(504, 200)
+scale = Vector2(0.271, 0.271)
+texture = ExtResource("1_f3pl4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(496.5, 183)
+shape = SubResource("RectangleShape2D_s67h3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(496, 182)
+scale = Vector2(1.70833, 1.70833)
+energy = 16.0
+texture = ExtResource("3_j18j4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

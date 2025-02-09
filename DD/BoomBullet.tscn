@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://jyxoni6w77i3"]
+
+[ext_resource type="Script" path="res://BoomBullet.gd" id="1_1wa8n"]
+[ext_resource type="Texture2D" uid="uid://ynsge4fxkgba" path="res://red.png" id="1_xjodl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfqgs"]
+size = Vector2(38, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi0oe"]
+size = Vector2(40, 40)
+
+[node name="BoomBullet" type="RigidBody2D"]
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_1wa8n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.791667, 0.791667)
+texture = ExtResource("1_xjodl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xfqgs")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_pi0oe")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

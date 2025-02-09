@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkhgy81iqytj"]
+
+[ext_resource type="Texture2D" uid="uid://dlq74lw11jx4q" path="res://ShipElement/red.png" id="2_l08l6"]
+
+[sub_resource type="GDScript" id="GDScript_fceej"]
+script/source = "extends Area2D
+
+# Signals for when a ShipElement enters or exits the area
+signal ship_element_entered(ship_element)
+signal ship_element_exited(ship_element)
+
+# Timer for holding the ShipElement in the center
+var placement_timer: Timer
+
+# Holding time in seconds (adjust as needed)
+var holding_time = 5.0  
+
+# Whether a ShipElement is currently being held in the center
+var is_holding = false
+
+func _ready():
+	# Initialize the timer for placement
+	placement_timer = Timer.new()
+	placement_timer.one_shot = true
+	placement_timer.wait_time = holding_time
+	placement_timer.connect(\"timeout\", self._on_placement_timer_timeout)
+	add_child(placement_timer)
+
+	# Connect the signals for detection
+
+
+# Called when a body enters the CenterPlacementArea
+func _on_center_placement_area_body_entered(body):
+	if body.is_in_group(\"ship_elements\") and not is_holding:
+		print(\"ShipElement entered the center area:\", body.name)
+		emit_signal(\"ship_element_entered\", body)
+		_start_holding(body)
+
+# Called when a body exits the CenterPlacementArea
+func _on_center_placement_area_body_exited(body):
+	if body.is_in_group(\"ship_elements\") and not is_holding:
+		print(\"ShipElement exited the center area:\", body.name)
+		emit_signal(\"ship_element_exited\", body)
+
+# Starts the holding process for the ShipElement
+func _start_holding(ship_element):
+	is_holding = true
+	placement_timer.start()  # Start the timer for holding
+	ship_element.set_process(false)  # Stop movement of the ShipElement
+	ship_element.position = global_position  # Snap it to the center
+	print(\"Started holding ShipElement:\", ship_element.name)
+
+# Called when the holding timer finishes
+func _on_placement_timer_timeout():
+	print(\"ShipElement holding time completed!\")
+	emit_signal(\"ship_element_exited\", null)
+	is_holding = false
+
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fta5"]
+size = Vector2(85, 83)
+
+[node name="CenterPlacementArea" type="Area2D"]
+script = SubResource("GDScript_fceej")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(511, 383)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("2_l08l6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(511.5, 382.5)
+shape = SubResource("RectangleShape2D_3fta5")
+
+[connection signal="body_entered" from="." to="." method="_on_center_placement_area_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_center_placement_area_body_exited"]

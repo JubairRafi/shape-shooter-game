@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh23u1opi4nks"]
+
+[ext_resource type="Script" path="res://LaserBeam.gd" id="1_bck5j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm7p0"]
+size = Vector2(10, 100)
+
+[node name="LaserBeam" type="Area2D" groups=["bullets"]]
+collision_mask = 2
+script = ExtResource("1_bck5j")
+
+[node name="Line2D" type="Line2D" parent="." groups=["bullets"]]
+default_color = Color(1, 0.936113, 0.618377, 1)
+
+[node name="Area2D" type="Area2D" parent="." groups=["bullets"]]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visibility_layer = 2
+shape = SubResource("RectangleShape2D_xm7p0")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_apply_damage"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

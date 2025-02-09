@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfl24laaqj7nq"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_t5hmv"]
+[ext_resource type="Texture2D" uid="uid://d38cxkjp8s1pj" path="res://grey.png" id="2_rolm5"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="3_3nbxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvydm"]
+size = Vector2(50, 51)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 2
+script = ExtResource("1_t5hmv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(20, 10.271, 0, 1)
+texture = ExtResource("2_rolm5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_yvydm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.501658, 0.501658)
+color = Color(0.986752, 0.986752, 0.986752, 1)
+energy = 7.85
+range_z_min = -200
+range_z_max = 200
+shadow_enabled = true
+shadow_color = Color(0.99558, 0.99558, 0.99558, 0)
+texture = ExtResource("3_3nbxk")
+texture_scale = 10.05

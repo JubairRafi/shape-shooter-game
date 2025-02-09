@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cryxdywk5w6cv"]
+
+[ext_resource type="Script" path="res://BulletPickup/PistolPickup.gd" id="1_h37sy"]
+[ext_resource type="Texture2D" uid="uid://bx62w8cqjkb7m" path="res://BulletPickup/pistol.png" id="1_oadh2"]
+[ext_resource type="Texture2D" uid="uid://cc6hg5at354fy" path="res://yellow.png" id="3_0bp45"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wo3g"]
+size = Vector2(24, 24)
+
+[node name="PistolPickup" type="Area2D"]
+position = Vector2(-479, -181)
+collision_layer = 2
+script = ExtResource("1_h37sy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.0117647, 1)
+position = Vector2(548, 256)
+scale = Vector2(0.270833, 0.255787)
+texture = ExtResource("1_oadh2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(541, 240)
+shape = SubResource("RectangleShape2D_5wo3g")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(540, 241)
+scale = Vector2(1.79167, 1.79167)
+energy = 16.0
+texture = ExtResource("3_0bp45")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

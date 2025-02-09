@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7jdcf8vifysc"]
+
+[ext_resource type="Script" path="res://Boss.gd" id="1_vs5gq"]
+[ext_resource type="Texture2D" uid="uid://d38cxkjp8s1pj" path="res://grey.png" id="2_ealyq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e0cm"]
+bg_color = Color(0.138013, 0.488259, 0.320596, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2kpm"]
+size = Vector2(127, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxbd8"]
+size = Vector2(128, 120)
+
+[node name="Boss" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("1_vs5gq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.0666667, 1)
+light_mask = 3
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_ealyq")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.545023, 0.900531, 0.728894, 1)
+offset_left = -46.0
+offset_top = -106.0
+offset_right = 60.0
+offset_bottom = -79.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_5e0cm")
+max_value = 15000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_x2kpm")
+
+[node name="DetectionArea" type="Area2D" parent="." groups=["enemies"]]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_uxbd8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+modulate = Color(0.556863, 0.443137, 1, 1)
+scale = Vector2(5.16667, 5.16667)
+energy = 16.0
+range_z_min = -300
+range_z_max = 300
+shadow_enabled = true
+texture = ExtResource("2_ealyq")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Timer3" type="Timer" parent="."]
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]

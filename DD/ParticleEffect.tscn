@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cs1xcl5uy1yre"]
+
+[node name="ParticleEffect" type="CPUParticles2D"]
+emitting = false
+amount = 116
+lifetime = 7.06
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, 537)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0

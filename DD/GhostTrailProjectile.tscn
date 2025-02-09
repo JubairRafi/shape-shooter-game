@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ufv13ysmfcb"]
+
+[ext_resource type="Script" path="res://GhostTrailProjectile.gd" id="1_qlhu0"]
+[ext_resource type="Texture2D" uid="uid://d38cxkjp8s1pj" path="res://grey.png" id="2_n1pwv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2kpm"]
+size = Vector2(47, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxbd8"]
+size = Vector2(52, 52)
+
+[node name="GhostTrailProjectile" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(0.5, 0.5)
+collision_mask = 2
+script = ExtResource("1_qlhu0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.996078, 0.854902, 0, 1)
+light_mask = 3
+texture = ExtResource("2_n1pwv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_x2kpm")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_uxbd8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+modulate = Color(0.556863, 0.443137, 1, 1)
+scale = Vector2(5.16667, 5.16667)
+energy = 16.0
+range_z_min = -300
+range_z_max = 300
+shadow_enabled = true
+texture = ExtResource("2_n1pwv")
+
+[node name="LifespanTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="timeout" from="LifespanTimer" to="." method="_on_LifespanTimer_timeout"]

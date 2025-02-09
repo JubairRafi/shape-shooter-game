@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://l8kkj6lop3wi"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_ms36v"]
+[ext_resource type="Texture2D" uid="uid://bqr8dapc853er" path="res://blue.png" id="2_p44dj"]
+[ext_resource type="Texture2D" uid="uid://ynsge4fxkgba" path="res://red.png" id="3_3ffbo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2kpm"]
+size = Vector2(47, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxbd8"]
+size = Vector2(52, 52)
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("1_ms36v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 16.216, 72.973, 1)
+texture = ExtResource("2_p44dj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_x2kpm")
+
+[node name="DetectionArea" type="Area2D" parent="." groups=["enemies"]]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_uxbd8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 8.7
+range_z_min = -300
+range_z_max = 300
+shadow_enabled = true
+texture = ExtResource("3_3ffbo")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]

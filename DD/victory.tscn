@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfpxk18omlu2c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jg6to"]
+font_size = 100
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Win" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 190.0
+offset_right = 1075.0
+offset_bottom = 451.0
+text = "Congratulations"
+label_settings = SubResource("LabelSettings_jg6to")
+horizontal_alignment = 1
+vertical_alignment = 1
